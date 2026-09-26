@@ -1,0 +1,96 @@
+{
+	"name": "df_inventario_diario",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "inventario_diario_csv",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "inventario_diario_sql",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "split1"
+				},
+				{
+					"name": "derivedColumn2"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          inventario_id as string,",
+				"          fecha_inventario as string,",
+				"          sucursal_id as string,",
+				"          producto_id as string,",
+				"          stock_inicial as string,",
+				"          entradas as string,",
+				"          salidas as string,",
+				"          stock_final as string,",
+				"          punto_reorden as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(sucursal_id = trim(sucursal_id),",
+				"          producto_id = trim(producto_id),",
+				"          salidas = trim(salidas),",
+				"          stock_final = trim(stock_final)) ~> derivedColumn1",
+				"derivedColumn1 split(producto_id != 'PRO9999' && toInteger(stock_final) == toInteger(stock_inicial) + toInteger(entradas) - toInteger(salidas),",
+				"     disjoint: false) ~> split1@(validos, rechazados)",
+				"split1@validos derive(fecha_inventario = toDate(fecha_inventario),",
+				"          stock_inicial = toInteger(stock_inicial),",
+				"          entradas = toInteger(entradas),",
+				"          salidas = toInteger(salidas),",
+				"          stock_final = toInteger(stock_final),",
+				"          punto_reorden = toInteger(punto_reorden)) ~> derivedColumn2",
+				"derivedColumn2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          inventario_id as string,",
+				"          fecha as date,",
+				"          sucursal_id as string,",
+				"          producto_id as string,",
+				"          stock_inicial as integer,",
+				"          entradas as integer,",
+				"          salidas as integer,",
+				"          stock_final as integer,",
+				"          stock_minimo as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          inventario_id,",
+				"          fecha = fecha_inventario,",
+				"          sucursal_id,",
+				"          producto_id,",
+				"          stock_inicial,",
+				"          entradas,",
+				"          salidas,",
+				"          stock_final",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}
