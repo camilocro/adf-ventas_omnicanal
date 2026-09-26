@@ -16,6 +16,10 @@
 				"type": "varchar"
 			},
 			{
+				"name": "restaurante_id",
+				"type": "varchar"
+			},
+			{
 				"name": "nombre_sucursal",
 				"type": "nvarchar"
 			},
@@ -28,12 +32,17 @@
 				"type": "nvarchar"
 			},
 			{
-				"name": "formato",
+				"name": "direccion",
 				"type": "nvarchar"
 			},
 			{
-				"name": "fecha_apertura",
-				"type": "date"
+				"name": "capacidad_mesas",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "tiene_delivery",
+				"type": "nvarchar"
 			}
 		],
 		"typeProperties": {
