@@ -20,16 +20,6 @@
 				"type": "nvarchar"
 			},
 			{
-				"name": "tipo_descuento",
-				"type": "nvarchar"
-			},
-			{
-				"name": "valor_descuento",
-				"type": "decimal",
-				"precision": 8,
-				"scale": 2
-			},
-			{
 				"name": "fecha_inicio",
 				"type": "date"
 			},
@@ -38,11 +28,13 @@
 				"type": "date"
 			},
 			{
-				"name": "canal_aplicable",
-				"type": "nvarchar"
+				"name": "porcentaje_descuento",
+				"type": "decimal",
+				"precision": 5,
+				"scale": 2
 			},
 			{
-				"name": "estado_promocion",
+				"name": "canal_aplicable",
 				"type": "nvarchar"
 			}
 		],
