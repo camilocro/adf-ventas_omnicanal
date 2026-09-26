@@ -82,13 +82,14 @@
 				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
 				"          inventario_id,",
-				"          fecha = fecha_inventario,",
+				"          fecha_inventario,",
 				"          sucursal_id,",
 				"          producto_id,",
 				"          stock_inicial,",
 				"          entradas,",
 				"          salidas,",
-				"          stock_final",
+				"          stock_final,",
+				"          punto_reorden",
 				"     )) ~> sink1"
 			]
 		}

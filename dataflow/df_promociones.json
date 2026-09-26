@@ -70,6 +70,7 @@
 				"          nombre_promocion,",
 				"          fecha_inicio,",
 				"          fecha_fin,",
+				"          porcentaje_descuento,",
 				"          canal_aplicable",
 				"     )) ~> sink1"
 			]

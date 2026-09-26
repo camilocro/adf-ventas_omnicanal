@@ -84,11 +84,11 @@
 				"     mapColumn(",
 				"          cliente_id,",
 				"          nombre,",
-				"          ciudad,",
-				"          segmento,",
-				"          fecha_registro,",
 				"          email,",
-				"          telefono",
+				"          telefono,",
+				"          ciudad,",
+				"          fecha_registro,",
+				"          segmento",
 				"     )) ~> sink1"
 			]
 		}
