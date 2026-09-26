@@ -47,7 +47,7 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "ventas_omnicanal",
+			"schema": "delivery",
 			"table": "promociones"
 		}
 	}

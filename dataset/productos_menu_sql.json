@@ -1,5 +1,5 @@
 {
-	"name": "sucursales_sql",
+	"name": "productos_menu_sql",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "sql_omnicanal",
@@ -12,33 +12,37 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "sucursal_id",
+				"name": "producto_id",
 				"type": "varchar"
 			},
 			{
-				"name": "nombre_sucursal",
+				"name": "nombre_producto",
 				"type": "nvarchar"
 			},
 			{
-				"name": "ciudad",
+				"name": "categoria",
 				"type": "nvarchar"
 			},
 			{
-				"name": "zona",
-				"type": "nvarchar"
+				"name": "precio_lista",
+				"type": "decimal",
+				"precision": 12,
+				"scale": 2
 			},
 			{
-				"name": "formato",
-				"type": "nvarchar"
+				"name": "costo_estimado",
+				"type": "decimal",
+				"precision": 12,
+				"scale": 2
 			},
 			{
-				"name": "fecha_apertura",
-				"type": "date"
+				"name": "disponible",
+				"type": "nvarchar"
 			}
 		],
 		"typeProperties": {
 			"schema": "delivery",
-			"table": "sucursales"
+			"table": "productos_menu"
 		}
 	}
 }

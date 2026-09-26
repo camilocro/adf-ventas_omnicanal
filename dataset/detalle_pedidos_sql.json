@@ -1,5 +1,5 @@
 {
-	"name": "inventario_diario_sql",
+	"name": "detalle_pedidos_sql",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "sql_omnicanal",
@@ -12,15 +12,11 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "inventario_id",
+				"name": "detalle_id",
 				"type": "varchar"
 			},
 			{
-				"name": "fecha",
-				"type": "date"
-			},
-			{
-				"name": "sucursal_id",
+				"name": "pedido_id",
 				"type": "varchar"
 			},
 			{
@@ -28,34 +24,32 @@
 				"type": "varchar"
 			},
 			{
-				"name": "stock_inicial",
+				"name": "cantidad",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "entradas",
-				"type": "int",
-				"precision": 10
+				"name": "precio_unitario",
+				"type": "decimal",
+				"precision": 12,
+				"scale": 2
 			},
 			{
-				"name": "salidas",
-				"type": "int",
-				"precision": 10
+				"name": "descuento_linea",
+				"type": "decimal",
+				"precision": 12,
+				"scale": 2
 			},
 			{
-				"name": "stock_final",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "stock_minimo",
-				"type": "int",
-				"precision": 10
+				"name": "total_linea",
+				"type": "decimal",
+				"precision": 12,
+				"scale": 2
 			}
 		],
 		"typeProperties": {
 			"schema": "delivery",
-			"table": "inventario_diario"
+			"table": "detalle_pedidos"
 		}
 	}
 }

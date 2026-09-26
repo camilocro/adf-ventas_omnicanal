@@ -1,5 +1,5 @@
 {
-	"name": "sucursales_sql",
+	"name": "calificaciones_sql",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "sql_omnicanal",
@@ -12,33 +12,34 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "sucursal_id",
+				"name": "calificacion_id",
 				"type": "varchar"
 			},
 			{
-				"name": "nombre_sucursal",
-				"type": "nvarchar"
+				"name": "pedido_id",
+				"type": "varchar"
 			},
 			{
-				"name": "ciudad",
-				"type": "nvarchar"
+				"name": "cliente_id",
+				"type": "varchar"
 			},
 			{
-				"name": "zona",
-				"type": "nvarchar"
-			},
-			{
-				"name": "formato",
-				"type": "nvarchar"
-			},
-			{
-				"name": "fecha_apertura",
+				"name": "fecha_calificacion",
 				"type": "date"
+			},
+			{
+				"name": "puntuacion",
+				"type": "tinyint",
+				"precision": 3
+			},
+			{
+				"name": "comentario",
+				"type": "nvarchar"
 			}
 		],
 		"typeProperties": {
 			"schema": "delivery",
-			"table": "sucursales"
+			"table": "calificaciones"
 		}
 	}
 }

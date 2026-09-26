@@ -12,13 +12,27 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "clientes_sql",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "derivedColumn1"
 				},
 				{
 					"name": "split1"
+				},
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "derivedColumn2"
 				}
 			],
 			"scriptLines": [
@@ -39,7 +53,45 @@
 				"          email = trim(email),",
 				"          cliente_id = iif(trim(cliente_id)=='CLI00030' && trim(email)=='cliente31@correo.bo','CLI00031',trim(cliente_id))) ~> derivedColumn1",
 				"derivedColumn1 split(!isNull(cliente_id) && !isNull(nombre) && !isNull(ciudad) && !isNull(email) && email !='',",
-				"     disjoint: false) ~> split1@(validos, rechazados)"
+				"     disjoint: false) ~> split1@(validos, rechazados)",
+				"split1@validos aggregate(groupBy(cliente_id),",
+				"     nombre = first(nombre),",
+				"          email = first(email),",
+				"          telefono = first(telefono),",
+				"          ciudad = first(ciudad),",
+				"          fecha_registro = first(fecha_registro),",
+				"          segmento = first(segmento)) ~> aggregate1",
+				"aggregate1 derive(fecha_registro = toDate(fecha_registro)) ~> derivedColumn2",
+				"derivedColumn2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          cliente_id as string,",
+				"          nombre as string,",
+				"          ciudad as string,",
+				"          segmento as string,",
+				"          fecha_registro as date,",
+				"          edad as integer,",
+				"          nivel_fidelidad as string,",
+				"          email as string,",
+				"          telefono as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          cliente_id,",
+				"          nombre,",
+				"          ciudad,",
+				"          segmento,",
+				"          fecha_registro,",
+				"          email,",
+				"          telefono",
+				"     )) ~> sink1"
 			]
 		}
 	}
